@@ -4,5 +4,5 @@ __pycache__/
 *$py.class
 *.py[cod]
 *.pyc
-/env/
+env/
 */migrations/
