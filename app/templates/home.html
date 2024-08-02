@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1>Vehicle Records</h1>
+        <a href="{% url 'vehicle_entry' %}" class="btn btn-primary">Add Vehicle Entry</a>
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Plate Number</th>
+                <th>Driver Name</th>
+                <th>Entry Weight (kg)</th>
+                <th>Exit Weight (kg)</th>
+                <th>Net Weight (kg)</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for vehicle in vehicles %}
+                <tr>
+                    <td>{{ vehicle.plate_number }}</td>
+                    <td>{{ vehicle.driver_name }}</td>
+                    <td>{{ vehicle.entry_weight }}</td>
+                    <td>{{ vehicle.exit_weight }}</td>
+                    <td>{{ vehicle.net_weight }}</td>
+                    <td>
+                        <a href="{% url 'vehicle_detail' vehicle.pk %}" class="btn btn-info btn-sm">View</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
