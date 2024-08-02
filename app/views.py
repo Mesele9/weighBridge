@@ -83,3 +83,8 @@ def get_weight(request):
 def vehicle_detail(request, pk):
     vehicle = Vehicle.objects.get(pk=pk)
     return render(request, 'vehicle_detail.html', {'vehicle': vehicle})
+
+def vehicle_delete(request, pk):
+    vehicle = get_object_or_404(Vehicle, pk=pk)
+    vehicle.delete()
+    return redirect('home')
