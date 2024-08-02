@@ -1,0 +1,31 @@
+<!-- app/templates/vehicle_exit.html -->
+{% extends 'base.html' %}
+
+{% block title %}Vehicle Exit{% endblock %}
+
+{% block content %}
+    <h1>Vehicle Exit</h1>
+    <form method="post" class="needs-validation" novalidate>
+        {% csrf_token %}
+        <div class="form-group">
+            <p>Plate Number: {{ vehicle.plate_number }}</p>
+            <p>Entry Weight: {{ vehicle.entry_weight }}</p>
+            <label for="id_exit_weight">Exit Weight (kg)</label>
+            <div class="input-group">
+                <input type="text" id="id_exit_weight" name="exit_weight" class="form-control">
+                <div class="input-group-append">
+                    <button type="button" class="btn btn-secondary" onclick="fetchExitWeight()">Get Weight</button>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Record Exit Weight</button>
+    </form>
+    <script>
+        function fetchExitWeight() {
+            $.get('{% url "get_weight" %}', function(data) {
+                $('#id_exit_weight').val(data.weight);
+            });
+        }
+    </script>
+{% endblock %}
+
