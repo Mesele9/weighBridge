@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
-{% block title %}Vehicle Exit{% endblock %}
+{% block title %}Vehicle Update{% endblock %}
 
 {% block content %}
-    <h1>Vehicle Exit</h1>
+    <h1>Vehicle Update</h1>
     <form method="post" class="needs-validation" novalidate>
         {% csrf_token %}
         <div class="form-group">
@@ -14,19 +14,17 @@
             <div class="input-group">
                 {{ form.exit_weight }}
                 <div class="input-group-append">
-                    <button type="button" class="btn btn-secondary" onclick="fetchWeight('exit')">Get Weight</button>
+                    <button type="button" class="btn btn-secondary" onclick="fetchWeight('id_exit_weight')">Get Weight</button>
                 </div>
             </div>
             {{ form.exit_weight.errors }}
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Update</button>
     </form>
     <script>
-        function fetchWeight(type) {
+        function fetchWeight(fieldId) {
             $.get('{% url "get_weight" %}', function(data) {
-                if (type === 'exit') {
-                    $('#id_exit_weight').val(data.weight);
-                }
+                $('#' + fieldId).val(data.weight);
             });
         }
     </script>

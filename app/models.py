@@ -1,3 +1,4 @@
+from datetime import timezone
 from django.db import models
 
 class Vehicle(models.Model):
@@ -9,8 +10,12 @@ class Vehicle(models.Model):
     exit_weight = models.FloatField(null=True, blank=True)
     net_weight = models.FloatField(null=True, blank=True)
 
+
     def save(self, *args, **kwargs):
-        if self.entry_weight and self.exit_weight:
+        if self.exit_weight and not self.exit_time:
+            self.exit_time = timezone.now()
+        if self.exit_weight and self.entry_weight:
             self.net_weight = self.exit_weight - self.entry_weight
         super().save(*args, **kwargs)
+
 

@@ -2,6 +2,23 @@ from django import forms
 from .models import Vehicle
 from django.core.exceptions import ValidationError
 
+
+class VehicleEntryForm(forms.ModelForm):
+    class Meta:
+        model = Vehicle
+        fields = ['plate_number', 'driver_name', 'entry_weight', 'exit_weight']
+
+class VehicleUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Vehicle
+        fields = ['exit_weight']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['exit_weight'].required = False
+
+
+'''
 class VehicleForm(forms.ModelForm):
     class Meta:
         model = Vehicle
@@ -19,3 +36,4 @@ class VehicleForm(forms.ModelForm):
             raise ValidationError('Invalid exit weight.')
         return exit_weight
 
+'''
